@@ -1,0 +1,22 @@
+{
+  "name": "watusiapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ruben-CS/WatusiApp.git"
+  },
+  "author": "Ruben Ferreira, Camila Guzman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ruben-CS/WatusiApp/issues"
+  },
+  "homepage": "https://github.com/Ruben-CS/WatusiApp#readme",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
