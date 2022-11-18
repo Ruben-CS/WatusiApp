@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Base - Tailwind CSS Startup Template</title>
+    <link rel="icon" href="favicon.ico">
+    <link href="output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script></script>
+</head>
+
+<body>
+    <div class="isolate bg-white">
+        <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
+            <svg class="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
+                viewBox="0 0 1155 678" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)" fill-opacity=".3"
+                    d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z" />
+                <defs>
+                    <linearGradient id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533" x1="1155.49" x2="-78.208" y1=".177"
+                        y2="474.645" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#9089FC"></stop>
+                        <stop offset="1" stop-color="#FF80B5"></stop>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <div class="px-6 pt-6 lg:px-8">
+            <div>
+                <nav class="flex h-9 items-center justify-between" aria-label="Global">
+                    <div class="flex lg:min-w-0 lg:flex-1" aria-label="Global">
+                        <a href="/" class="-m-1.5 p-1.5">
+                            <span class="sr-only">WatusiApp</span>
+                            <img class="h-8" src="assets/images/watusilogonegro.png" alt="">
+                        </a>
+                    </div>
+                    <div class="flex lg:hidden">
+                        <button type="button"
+                            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+                            <span class="sr-only">Open main menu</span>
+                            <!-- Heroicon name: outline/bars-3 -->
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-12">
+                        <a href="/" class="font-semibold text-gray-900 hover:text-gray-900">Inicio</a>
+    
+                        <a href="/catalogo" class="font-semibold text-gray-900 hover:text-gray-900">Catálogo</a>
+    
+                        <a href="/nosotros" class="font-semibold text-gray-900 hover:text-gray-900">Nosotros</a>
+    
+                        <a href="/encuentranos" class="font-semibold text-gray-900 hover:text-gray-900">Encuéntranos</a>
+                    </div>
+                    <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
+                        <a href="/signin"
+                            class="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20">Log
+                            in</a>
+                        <a href="/register"
+                            class="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20">Crear
+                            cuenta</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="flex font-sans">
+        <div class="flex-none w-48 relative">
+            <img src="/classic-utility-jacket.jpg" alt="" class="absolute inset-0 w-full h-full object-cover"
+                loading="lazy" />
+        </div>
+        <form class="flex-auto p-6">
+            <div class="flex flex-wrap">
+                <h1 class="flex-auto text-lg font-semibold text-slate-900">
+                    Classic Utility Jacket
+                </h1>
+                <div class="text-lg font-semibold text-slate-500">
+                    $110.00
+                </div>
+                <div class="w-full flex-none text-sm font-medium text-slate-700 mt-2">
+                    In stock
+                </div>
+            </div>
+            <div class="flex items-baseline mt-4 mb-6 pb-6 border-b border-slate-200">
+                <div class="space-x-2 flex text-sm">
+                    <label>
+                        <input class="sr-only peer" name="size" type="radio" value="xs" checked />
+                        <div
+                            class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
+                            XS
+                        </div>
+                    </label>
+                    <label>
+                        <input class="sr-only peer" name="size" type="radio" value="s" />
+                        <div
+                            class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
+                            S
+                        </div>
+                    </label>
+                    <label>
+                        <input class="sr-only peer" name="size" type="radio" value="m" />
+                        <div
+                            class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
+                            M
+                        </div>
+                    </label>
+                    <label>
+                        <input class="sr-only peer" name="size" type="radio" value="l" />
+                        <div
+                            class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
+                            L
+                        </div>
+                    </label>
+                    <label>
+                        <input class="sr-only peer" name="size" type="radio" value="xl" />
+                        <div
+                            class="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
+                            XL
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="flex space-x-4 mb-6 text-sm font-medium">
+                <div class="flex-auto flex space-x-4">
+                    <button class="h-10 px-6 font-semibold rounded-md bg-black text-white" type="submit">
+                        Buy now
+                    </button>
+                    <button class="h-10 px-6 font-semibold rounded-md border border-slate-200 text-slate-900"
+                        type="button">
+                        Add to bag
+                    </button>
+                </div>
+                <button
+                    class="flex-none flex items-center justify-center w-9 h-9 rounded-md text-slate-300 border border-slate-200"
+                    type="button" aria-label="Like">
+                    <svg width="20" height="20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
+                    </svg>
+                </button>
+            </div>
+            <p class="text-sm text-slate-700">
+                Free shipping on all continental US orders.
+            </p>
+        </form>
+    </div>
+
+</body>
+
+</html>
