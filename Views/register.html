@@ -6,13 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WATUSI APP</title>
-    <script src="/public/js/jquery-3.6.1.js"></script>
     <script src="/public/js/toastr.js"></script>
+    <script src="/public/js/jquery-3.6.1.js"></script>
     <script src="/public/js/utiles.js"></script>
     <link rel="icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/public/js/register.js"></script>
-
 </head>
 
 <body>
@@ -37,13 +36,14 @@
                     <div class="flex lg:min-w-0 lg:flex-1" aria-label="Global">
                         <a href="/" class="-m-1.5 p-1.5">
                             <span class="sr-only">WatusiApp</span>
-                            <img class="h-8" src="" alt="">
+                            <img class="h-8" src="assets/images/watusilogonegro.png" alt="">
                         </a>
                     </div>
                     <div class="flex lg:hidden">
                         <button type="button"
                             class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
                             <span class="sr-only">Open main menu</span>
+                            <!-- Heroicon name: outline/bars-3 -->
                             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -53,11 +53,11 @@
                     </div>
                     <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-12">
                         <a href="/" class="font-semibold text-gray-900 hover:text-gray-900">Inicio</a>
-
+    
                         <a href="/catalogo" class="font-semibold text-gray-900 hover:text-gray-900">Catálogo</a>
-
+    
                         <a href="/nosotros" class="font-semibold text-gray-900 hover:text-gray-900">Nosotros</a>
-
+    
                         <a href="/encuentranos" class="font-semibold text-gray-900 hover:text-gray-900">Encuéntranos</a>
                     </div>
                     <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
@@ -98,6 +98,31 @@
                     <input
                         class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="password" type="password" placeholder="Ingresa una contraseña">
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/3">
+                    <label for="telefono" class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Telefono
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="telefono" type="text" placeholder="Numero de Telefono">
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/3">
+                    <label for="email" class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Email
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="email" type="text" placeholder="Correo electronico">
+                    <input type="hidden" id="rol" value="C">
                 </div>
             </div>
             <div class="md:flex md:items-center">

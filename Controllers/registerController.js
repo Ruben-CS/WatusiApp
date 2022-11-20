@@ -9,7 +9,10 @@ module.exports = {
         var data = {
             iduser: req.body.iduser,
             name: req.body.name,
-            password: req.body.password
+            password: req.body.password,
+            rol: req.body.rol,
+            telefono: req.body.telefono,
+            email: req.body.email,
         };
         model.guardarUsuario(data).then(result => {
             res.type('json');

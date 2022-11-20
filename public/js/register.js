@@ -1,6 +1,6 @@
 var _datosUsuario;
 
-function guardarUsuarioExitoso(respuesta, elemento) {
+/*function guardarUsuarioExitoso(respuesta, elemento) {
     if (respuesta.Success) {
         if (elemento) {
             elemento.name = $("#name").val();
@@ -19,7 +19,7 @@ function guardarUsuarioExitoso(respuesta, elemento) {
     } else {
         toastr.error(respuesta.Mensaje);
     }
-}
+}*/
 function guardarUsuario(iduser, elemento) {
     var url = "/register/GuardarUsuario";
     var tipo = 'POST';
@@ -27,23 +27,27 @@ function guardarUsuario(iduser, elemento) {
         iduser: iduser,
         name: $("#name").val(),
         password: $("#password").val(),
+        rol: $("#rol").val(),
+        telefono: $("#telefono").val(),
+        email: $("#email").val(),
     };
     var tipoDatos = 'JSON';
     solicitudAjax(url, function (response) {
-        guardarUsuarioExitoso(response, elemento);
-    }
-        , datos, tipoDatos, tipo);
+        //getUsuarioExitoso(response, elemento);
+    }, datos, tipoDatos, tipo);
+    //go to main page
+    window.location.href = "/signin";
 }
 
-/*function limpiar() {
+function limpiar() {
     $("#name").val("");
     $("#password").val("");
-    //$("#btnEditar").hide();
-    //$("#btnGuardar").show();
-}*/
+    $("#telefono").val("");
+    $("#email").val("");
+}
 
 
-function getUsuarioExitoso(resultado) {
+/*function getUsuarioExitoso(resultado) {
     if (resultado.Success) {
         toastr.success("Cargado Exitoso");
         _datosUsuario = resultado.Data;
@@ -51,7 +55,7 @@ function getUsuarioExitoso(resultado) {
     } else {
         toastr.error(resultado.Mensaje);
     }
-}
+}*/
 
 /*function init() {
     var url = "/register/GuardarUsuario";
@@ -65,5 +69,7 @@ function getUsuarioExitoso(resultado) {
 $(document).ready(function () {
     $("#btnGuardar").click(function () {
         guardarUsuario(0);
+        limpiar();
+        //getUsuarioExitoso();
     });
 });

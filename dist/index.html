@@ -6,15 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WATUSI APP</title>
+    <script src="/public/js/toastr.js"></script>
   <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="src/css/catalogo.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <script></script>
   </head>
 
 <body>
-  <!-- This example requires Tailwind CSS v3.0+ -->
   <div class="isolate bg-white">
     <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
       <svg
@@ -37,7 +36,7 @@
           <div class="flex lg:min-w-0 lg:flex-1" aria-label="Global">
             <a href="/" class="-m-1.5 p-1.5">
               <span class="sr-only">WatusiApp</span>
-              <img class="h-8" src="assets/images/watusilogonegro.png" alt="">
+              <img class="h-8" src="" alt="">
             </a>
           </div>
           <div class="flex lg:hidden">
@@ -52,17 +51,18 @@
           </div>
           <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-12">
             <a href="/" class="font-semibold text-gray-900 hover:text-gray-900">Inicio</a>
-
+  
             <a href="/catalogo" class="font-semibold text-gray-900 hover:text-gray-900">Catálogo</a>
-
+  
             <a href="/nosotros" class="font-semibold text-gray-900 hover:text-gray-900">Nosotros</a>
-
+  
             <a href="/encuentranos" class="font-semibold text-gray-900 hover:text-gray-900">Encuéntranos</a>
           </div>
           <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
             <a href="/signin"
               class="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20">Log
               in</a>
+
             <a href="/register"
               class="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20">Crear
               cuenta</a>
@@ -71,6 +71,7 @@
       </div>
     </div>
   </div>
+  <!-- This example requires Tailwind CSS v3.0+ -->
   <main>
     <div class="relative px-6 lg:px-8">
       <div class="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
