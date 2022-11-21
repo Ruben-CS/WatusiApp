@@ -36,7 +36,7 @@ function guardarUsuario(iduser, elemento) {
         //getUsuarioExitoso(response, elemento);
     }, datos, tipoDatos, tipo);
     //go to main page
-    window.location.href = "/signin";
+    //window.location.href = "/signin";
 }
 
 function limpiar() {

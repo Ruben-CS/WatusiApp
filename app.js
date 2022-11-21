@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 const port = 5000;
 const path = require("path");
-// const pgp = require("pg-promise")();
-// const db = pgp("postgres://postgres:Passw0rd@localhost:5432/wilson");
 const bodyParser = require("body-parser");
 let indexRoute = require('./routes/indexRoute');
 let catalogoRoute = require('./routes/catalogoRoute');
 let signInRoute = require('./routes/signInRoute');
 let registerRoute = require('./routes/registerRoute');
+let administrarRoute = require('./routes/administrarRoute');
+app.disable('etag');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -18,6 +18,7 @@ app.use('/', indexRoute);
 app.use('/catalogo', catalogoRoute);
 app.use('/signIn', signInRoute);
 app.use('/register/', registerRoute);
+app.use('/administrar/', administrarRoute);
 
 app.get("/", (req, res) => {
     res.sendFile(path.resolve(__dirname, "/dist/index.html"));
@@ -30,6 +31,9 @@ app.get("/signin", (req, res) => {
 });
 app.get("/register", (req, res) => {
     res.sendFile(path.resolve(__dirname, "/Views/register.html"));
+});
+app.get("/administrar", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "/Views/administrar.html"));
 });
 
 /*
