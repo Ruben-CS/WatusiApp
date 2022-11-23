@@ -41,7 +41,7 @@ function init() {
         $.ajax({
             Success: function (data) {
                 console.log(data);
-                if (data.Success) {
+                /*if (data.Success) {
                     let products = data.Data;
                     let template = '';
                     products.forEach(product => {
@@ -61,23 +61,20 @@ function init() {
                     `
                     });
                     document.getElementById('products').innerHTML = template;
-                }
+                }*/
             }
         });
 
     }, datos, tipoDatos, tipo);
 }
 //function to show a modal
-function showModal() {
-    var modal = document.getElementById("modal");
-    $('#modal').modal('show');
-}
+
 
 
 
 $(document).ready(function () {
     init();
     $('#agregarTipo').click(function () {
-        showModal();
+        init();
     });
 });

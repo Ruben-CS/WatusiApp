@@ -33,10 +33,10 @@ function guardarUsuario(iduser, elemento) {
     };
     var tipoDatos = 'JSON';
     solicitudAjax(url, function (response) {
-        //getUsuarioExitoso(response, elemento);
+        getResultadoExitoso(response);
     }, datos, tipoDatos, tipo);
     //go to main page
-    //window.location.href = "/signin";
+    window.location.href = "/signin";
 }
 
 function limpiar() {
@@ -64,7 +64,30 @@ function limpiar() {
     var tipoDatos = 'JSON';
     solicitudAjax(url, getUsuarioExitoso, datos, tipoDatos, tipo);
 }*/
-
+function getResultadoExitoso(resultado) {
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "2000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    if (resultado.Success) {
+        toastr.success("Cuenta añadida con éxito");
+    } else {
+        toastr.error("Ups.. algo salió mal");
+    }
+}
 
 $(document).ready(function () {
     $("#btnGuardar").click(function () {

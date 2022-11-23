@@ -20,21 +20,6 @@ app.use('/signIn', signInRoute);
 app.use('/register/', registerRoute);
 app.use('/administrar/', administrarRoute);
 
-app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "/dist/index.html"));
-});
-app.get("/catalogo", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "/Views/catalogo.html"));
-});
-app.get("/signin", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "/Views/signin.html"));
-});
-app.get("/register", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "/Views/register.html"));
-});
-app.get("/administrar", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "/Views/administrar.html"));
-});
 
 /*
 app.get("/obtenerTipos",);
