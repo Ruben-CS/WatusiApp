@@ -1,5 +1,4 @@
-var _datosUsuario;
-
+var _datosProductos;
 function guardarModulo() {
     var url = "/administrar/GuardarModulo";
     var tipo = 'POST';
@@ -18,8 +17,6 @@ function guardarModulo() {
     solicitudAjax(url, function (response) {
         getResultadoExitoso(response);
     }, datos, tipoDatos, tipo);
-    //go to main page
-    //window.location.href = "/signin";
 }
 function guardarTanque() {
     var url = "/administrar/GuardarTanque";
@@ -39,17 +36,7 @@ function guardarTanque() {
     solicitudAjax(url, function (response) {
         getResultadoExitoso(response);
     }, datos, tipoDatos, tipo);
-
-    /*if (datos.nombre != "") {
-        console.log("guardado");
-        toastr.success("Tu cuenta ha sido creada con éxito");
-    } else {
-        toastr.error(respuesta.Mensaje);
-    }*/
-
-    console.log(datos);
-    //go to main page
-    //window.location.href = "/signin";
+    //console.log(datos);
 }
 function limpiarTanque() {
     $("#nombre").val("");
@@ -91,12 +78,54 @@ function getResultadoExitoso(resultado) {
     }
     if (resultado.Success) {
         toastr.success("Producto guardado con éxito");
+        _datosProductos = resultado.Data;
+        console.log(resultado);
+        //mostrarProductos();
     } else {
         toastr.error("Ups.. algo salió mal");
     }
 }
 
+function getAllProducts() {
+    $.ajax({
+        url: "/catalogo/ObtenerProductos",
+        type: 'GET',
+        //datos: {},
+        dataType: 'JSON',
+        //_datosProductos: datos,
+        success: function (data) {
+            _datosProductos = data;
+            $.each(data.Data, function (i, item) {
+                var row =
+
+                    "<tr>" +
+                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.nombre +
+                    "</p></div></td>" +
+
+                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.descripcion +
+                    "</p></div></td>" +
+
+                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.tipo +
+                    "</p></div></td>" +
+
+                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.precio +
+                    "</p></div></td>" +
+
+
+                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.estado +
+                    "</p></div></td>" +
+                    "</tr>";
+
+                $("#tblProducto>tbody").append(row);
+                //console.log(_datosProductos.Data.nombre);
+            });
+            console.log(_datosProductos);
+        }
+    });
+}
+
 function init() {
+    getAllProducts();
     $("#productoModulo").prop("checked", true);
     $("#showCapacidadLitros").hide();
     $("#showDiametro").hide();
@@ -114,7 +143,6 @@ function init() {
         $("#showVolumen").hide();
         $("#showEspesor").hide();
         console.log("modulo se apreto");
-
     }
     );
     $("#productoTanque").click(function () {
@@ -143,6 +171,8 @@ function isTanqueOrModulo() {
 
     }
 }
+
+btnMostrarBotonAgregar
 
 $(document).ready(function () {
     init();

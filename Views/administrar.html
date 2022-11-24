@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WATUSI APP</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="/public/css/toastr.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/public/css/toastr.css">
     <script src="/public/js/jquery-3.6.1.js"></script>
     <script src="/public/js/toastr.js"></script>
     <script src="/public/js/utiles.js"></script>
@@ -71,10 +71,104 @@
                 </nav>
             </div>
         </div>
+        <!--AQUI EMPIEZA LA TABLA-->
+        <div class=p-8 rounded-md w-full">
+            <div class=" flex items-center justify-between pb-6">
+                <div>
+                    <h2 class="text-gray-600 font-semibold">Tabla de productos</h2>
+                    <span class="text-xs">All products item</span>
+                </div>
+                <div class="flex items-center justify-between">
+        
+                    <div class="lg:ml-40 ml-10 space-x-8">
+                        <button
+                            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">New
+                            Report</button>
+                        <button
+                            class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Create</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <table id="tblProducto" class="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        Nombre
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        Descripcion
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        Tipo
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        PRECIO
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        ESTADO
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--
+                                                <tr>
+                                                    <td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+                                                        <div class='ml-3'>
+                                                            <p class='text-gray-900 whitespace-no-wrap'>
+                                                                Blake Bowman
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <p class="text-gray-900 whitespace-no-wrap">Editor</p>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <p class="text-gray-900 whitespace-no-wrap">
+                                                            Jan 01, 2020
+                                                        </p>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <p class="text-gray-900 whitespace-no-wrap">
+                                                            77
+                                                        </p>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <span
+                                                            class='relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight'>
+                                                            <span aria-hidden
+                                                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative">Activo</span>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                -->
+                            </tbody>
+        
+                        </table>
+                        <div class="flex items-center justify-between">
+        
+                            <div class="lg:ml-40 ml-10 space-x-8">
+                                <button id="btnMostrarBotonAgregar"
+                                    class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Agregar Nuevo Producto</button>
+                                <button
+                                    class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--AQUI TERMINA LA TABLA-->
         <div class="container w-full md:px-40 mx-auto py-20">
             <div
-                class="md:grid lg:grid-cols-1 md:grid-cols-1 mlg:grid-cols-2 md:gap-5 space-y-4 md:space-y-0 px-10 md:px-0 mx-auto">
-
+                class="md:grid lg:grid-cols- md:grid-cols-1 mlg:grid-cols-2 md:gap-5 space-y-4 md:space-y-0 px-10 md:px-0 mx-auto">
                 <div class="container w-full">
                     <div class=" space-y-6 md:space-y-0 px-10 md:px-0 mx-auto">
                     </div>
@@ -198,8 +292,6 @@
                                                             id="espesor" type="text" placeholder="Ej: 2mm">
                                                     </div>
                                                 </div>
-
-
                                     </div>
                                 </div>
                                 <div class="modal-actions bg-gray-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -209,7 +301,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
+
+                    </div>
+                    </div>
+                    </div>
+                    
+                    <!--AQUI EMPIEZA LA TABLA-->
+
             </div>
         </div>
     </div>
