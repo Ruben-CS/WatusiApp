@@ -56,5 +56,27 @@ module.exports = {
             res.send({ "Success": false, "Mensaje": error.message });
         });
     },
+    DeshabilitarProducto: (req, res) => {
+        var data = {
+            idproducto: req.body.idproducto,
+            estado: req.body.estado
+        };
+        model.deshabilitarProducto(data).then(function () {
+            res.type('json');
+            res.send({ "Success": true });
+        }).catch(function (error) {
+            res.type('json');
+            res.send({ "Success": false, "Mensaje": error.message });
+        });
+    },
+    EliminarProducto: (req, res) => {
+        var data = { idproducto: req.body.idproducto };
+        model.eliminarProducto(data).then(function () {
+            res.type('json');
+            res.send({ "Success": true });
+        }).catch(function (error) {
+            res.type('json');
+            res.send({ "Success": false, "Mensaje": error.message });
+        });
+    }
 }
-
