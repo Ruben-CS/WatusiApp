@@ -18,7 +18,155 @@ function guardarModulo() {
         getResultadoExitoso(response);
     }, datos, tipoDatos, tipo);
 }
+function moverseA(seccionFormulario) {
+    location.hash = "#" + seccionFormulario;
+}
 
+//PARA MODIFICAR MODULO
+function consumeModificarModulo(id) {
+    var url = "/administrar/ModificarModulo";
+    var tipo = 'POST';
+    var datos = {
+        idproducto: id,
+        nombre: $("#nombre").val(),
+        descripcion: $("#descripcion").val(),
+        precio: $("#precio").val(),
+        estado: true,
+        tipo: 1,
+        medida: $("#medida").val(),
+        cantpersonas: $("#cantpersonas").val(),
+        cantpuertas: $("#cantpuertas").val(),
+        cantventanas: $("#cantventanas").val(),
+    };
+    var tipoDatos = 'JSON';
+    solicitudAjax(url, function (response) {
+        getResultadoExitoso(response);
+    }, datos, tipoDatos, tipo);
+    location.reload();
+}
+
+//PARA MODIFICAR TANQUE
+function consumeModificarEndpoint(id) {
+    var url = "/administrar/ModificarTanque";
+    var tipo = 'POST';
+    var datos = {
+        idproducto: id,
+        nombre: $("#nombre").val(),
+        descripcion: $("#descripcion").val(),
+        precio: $("#precio").val(),
+        estado: true,
+        tipo: 2,
+        capacidadlitros: $("#capacidadlitros").val(),
+        diametro: $("#diametro").val(),
+        volumen: $("#volumen").val(),
+        espesor: $("#espesor").val(),
+    };
+    var tipoDatos = 'JSON';
+    solicitudAjax(url, function (response) {
+        getResultadoExitoso(response);
+    }, datos, tipoDatos, tipo);
+    location.reload();
+}
+
+//CONDICIONALES PARA VER QUE ENDPOINT SE VA A CONSUMIR (MODULO O TANQUE)
+function editProduct(id) {
+    _datosProductos.Data.forEach(function (item) {
+        if (item.idproducto == id) {
+            moverseA("seccionFormulario");
+            $("#nombre").val(item.nombre);
+            $("#descripcion").val(item.descripcion);
+            $("#precio").val(item.precio);
+            $("#productoModulo").hide();
+            $("#labelProductoModulo").hide();
+            $("#productoTanque").hide();
+            $("#labelProductoTanque").hide();
+            //TIPO 2 ES SI ES TANQUE
+            if (item.tipo == 2) {
+                $.ajax({
+                    url: "/administrar/ObtenerTanques",
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        _datosProductos = data;
+                        $.each(data.Data, function (i, item) {
+                            if (item.idproducto == id) {
+                                soyUnTanque();
+                                //MOSTRAR BOTON EDITAR
+                                $("#btnModificarTanque").show();
+                                //OCULTAR BOTON AGREGAR NUEVO PRODUCTO
+                                $("#btnGuardarTanque").hide();
+
+                                $("#labeltipoProducto").hide();
+                                //MOSTRAR LOS CAMPOS DE TANQUE
+
+                                //ASIGNAR VALORES A LOS CAMPOS DE TANQUE
+                                $("#capacidadlitros").val(item.capacidadlitros);
+                                $("#diametro").val(item.diametro);
+                                $("#volumen").val(item.volumen);
+                                $("#espesor").val(item.espesor);
+                                //OCULTAR CHECKBOX DE MODULO
+
+                                //PONER EN VACIO LOS CAMPOS DEL MODULO
+
+                                //DESHABILITAR BOTON DE AGREGAR NUEVO PRODUCTO
+                                $("#btnAgregarProducto").prop("disabled", true);
+                                $("#btnAgregarProducto").hide();
+                                //CONSUMIR ENDPOINT PARA EDITAR TANQUE
+                                $("#btnModificarTanque").click(function () {
+                                    consumeModificarEndpoint(id);
+                                });
+                            }
+                        });
+                    },
+                });
+            } else {
+                console.log("entre al if del modulo");
+                $.ajax({
+                    url: "/administrar/ObtenerModulos",
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        _datosProductos = data;
+                        $.each(data.Data, function (i, item) {
+                            if (item.idproducto == id) {
+                                //MOSTRAR LOS INPUTS DE MODULO
+                                soyUnModulo();
+                                console.log("entre al if del modulo y soy tipo : " + item.tipo);
+                                //MOSTRAR BOTON EDITAR MODULO Y OCULTAR MODIFICAR TANQUE
+                                $("#btnModificarModulo").show();
+                                $("#btnModificarTanque").hide();
+                                //OCULTAR EL LABEL DE PREGUNTA
+                                $("#labeltipoProducto").hide();
+                                //OCULTAR LABEL DEL CHECKBOX DE TANQUE
+
+                                //OCULTAR BOTON AGREGAR NUEVO PRODUCTO
+                                $("#btnAgregarProducto").hide();
+
+                                //MOSTRAR LOS CAMPOS DE MODULO
+
+                                //ASIGNAR VALORES A LOS CAMPOS DE MODULO
+                                $("#medida").val(item.medida);
+                                $("#cantpersonas").val(item.cantpersonas);
+                                $("#cantpuertas").val(item.cantpuertas);
+                                $("#cantventanas").val(item.cantventanas);
+
+                                //OCULTAR CHECKBOX DE TANQUE
+                                $("#productoTanque").hide();
+
+                                //CONSUMIR ENDPOINT PARA EDITAR TANQUE
+                                $("#btnModificarModulo").click(function () {
+                                    consumeModificarModulo(id);
+                                });
+                            }
+                        });
+                    },
+                });
+
+            }
+        }
+    });
+    //location.reload();
+}
 function changeStatus(id) {
     console.log(_datosProductos);
     _datosProductos.Data.forEach(function (item) {
@@ -122,7 +270,7 @@ function getResultadoExitoso(resultado) {
         "hideMethod": "fadeOut"
     }
     if (resultado.Success) {
-        toastr.success("Producto guardado con éxito");
+        toastr.success("Consulta exitosa", "Éxito");
         _datosProductos = resultado.Data;
         //console.log(resultado);
         //mostrarProductos();
@@ -133,7 +281,7 @@ function getResultadoExitoso(resultado) {
 
 function getAllProducts() {
     $.ajax({
-        url: "/catalogo/ObtenerProductos",
+        url: "/administrar/ObtenerProductos",
         type: 'GET',
         //datos: {},
         dataType: 'JSON',
@@ -167,7 +315,7 @@ function getAllProducts() {
                     "</p></div></td>" +
 
                     "<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" +
-                    "<button id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900' onclick='editar(" + item.idproducto + ")'>Editar</button>" +
+                    "<button href='#seccionFormulario' id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900' onclick='editProduct(" + item.idproducto + ")'>Editar</button>" +
                     "</p></div></td>" +
 
                     "</tr>";
@@ -191,42 +339,55 @@ function getAllProducts() {
 
 //function to change the state of the product
 
-
-function init() {
-    getAllProducts();
+function soyUnModulo() {
+    $("#productoTanque").prop("checked", false);
     $("#productoModulo").prop("checked", true);
+    $("#showMedida").show();
+    $("#showCantidadPersonas").show();
+    $("#showCantidadPuertas").show();
+    $("#showCantidadVentanas").show();
     $("#showCapacidadLitros").hide();
     $("#showDiametro").hide();
     $("#showVolumen").hide();
     $("#showEspesor").hide();
+    console.log("modulo se apreto");
+}
+function soyUnTanque() {
+    $("#productoModulo").prop("checked", false);
+    $("#productoTanque").prop("checked", true);
+    $("#showMedida").hide();
+    $("#showCantidadPersonas").hide();
+    $("#showCantidadPuertas").hide();
+    $("#showCantidadVentanas").hide();
+    $("#showCapacidadLitros").show();
+    $("#showDiametro").show();
+    $("#showVolumen").show();
+    $("#showEspesor").show();
+    console.log("tanque se apreto");
+}
+
+function init() {
+
+    getAllProducts();
+
+    //OCULTAR BOTONES DE EDITAR
+    $("#btnModificarTanque").hide();
+    $("#btnModificarModulo").hide();
+    //OCULTAR TODOS LOS CAMPOS DE TANQUE Y MODULO AL CARGAR LA PAGINA
+    $("#showCapacidadLitros").hide();
+    $("#showDiametro").hide();
+    $("#showVolumen").hide();
+    $("#showEspesor").hide();
+    $("#showMedida").hide();
+    $("#showCantidadPersonas").hide();
+    $("#showCantidadPuertas").hide();
+    $("#showCantidadVentanas").hide();
     $("#productoModulo").click(function () {
-        $("#productoTanque").prop("checked", false);
-
-        $("#showMedida").show();
-        $("#showCantidadPersonas").show();
-        $("#showCantidadPuertas").show();
-        $("#showCantidadVentanas").show();
-        $("#showCapacidadLitros").hide();
-        $("#showDiametro").hide();
-        $("#showVolumen").hide();
-        $("#showEspesor").hide();
-        console.log("modulo se apreto");
-    }
-    );
+        soyUnModulo();
+    });
     $("#productoTanque").click(function () {
-        $("#productoModulo").prop("checked", false);
-
-        $("#showMedida").hide();
-        $("#showCantidadPersonas").hide();
-        $("#showCantidadPuertas").hide();
-        $("#showCantidadVentanas").hide();
-        $("#showCapacidadLitros").show();
-        $("#showDiametro").show();
-        $("#showVolumen").show();
-        $("#showEspesor").show();
-        console.log("tanque se apreto");
-    }
-    );
+        soyUnTanque();
+    });
 }
 
 function isTanqueOrModulo() {
@@ -236,7 +397,6 @@ function isTanqueOrModulo() {
     } else {
         guardarTanque(0);
         limpiarTanque();
-
     }
 }
 

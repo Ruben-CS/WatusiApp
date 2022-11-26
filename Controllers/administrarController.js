@@ -14,6 +14,24 @@ module.exports = {
             res.send({ "Success": false, "Mensaje": error.message });
         });
     },
+    ObtenerTanques: (req, res) => {
+        model.obtenerTanques().then(function (data) {
+            res.type('json');
+            res.send({ "Success": true, "Data": data });
+        }).catch(function (error) {
+            res.type('json');
+            res.send({ "Success": false, "Mensaje": error.message });
+        });
+    },
+    ObtenerModulos: (req, res) => {
+        model.obtenerModulos().then(function (data) {
+            res.type('json');
+            res.send({ "Success": true, "Data": data });
+        }).catch(function (error) {
+            res.type('json');
+            res.send({ "Success": false, "Mensaje": error.message });
+        });
+    },
     GuardarTanque: (req, res) => {
         var data = {
             idproducto: req.body.idproducto,
@@ -35,6 +53,27 @@ module.exports = {
             res.send({ "Success": false, "Mensaje": error.message });
         });
     },
+    ModificarTanque: (req, res) => {
+        var data = {
+            idproducto: req.body.idproducto,
+            nombre: req.body.nombre,
+            descripcion: req.body.descripcion,
+            precio: req.body.precio,
+            estado: req.body.estado,
+            tipo: req.body.tipo,
+            capacidadlitros: req.body.capacidadlitros,
+            diametro: req.body.diametro,
+            volumen: req.body.volumen,
+            espesor: req.body.espesor
+        };
+        model.modificarTanque(data).then(function () {
+            res.type('json');
+            res.send({ "Success": true });
+        }).catch(function (error) {
+            res.type('json');
+            res.send({ "Success": false, "Mensaje": error.message });
+        });
+    },
     GuardarModulo: (req, res) => {
         var data = {
             idproducto: req.body.idproducto,
@@ -48,9 +87,18 @@ module.exports = {
             cantpuertas: req.body.cantpuertas,
             cantventanas: req.body.cantventanas
         };
-        model.guardarModulo(data).then(result => {
+        model.guardarModulo(data).then(function () {
             res.type('json');
-            res.send({ "Success": true, "Data": result.idproducto });
+            res.send({ "Success": true });
+        }).catch(function (error) {
+            res.type('json');
+            res.send({ "Success": false, "Mensaje": error.message });
+        });
+    },
+    ModificarModulo: (req, res) => {
+        model.modificarModulo(data).then(function () {
+            res.type('json');
+            res.send({ "Success": true });
         }).catch(function (error) {
             res.type('json');
             res.send({ "Success": false, "Mensaje": error.message });
@@ -78,5 +126,6 @@ module.exports = {
             res.type('json');
             res.send({ "Success": false, "Mensaje": error.message });
         });
-    }
+    },
+
 }
