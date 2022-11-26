@@ -8,7 +8,7 @@ let catalogoRoute = require('./routes/catalogoRoute');
 let signInRoute = require('./routes/signInRoute');
 let registerRoute = require('./routes/registerRoute');
 let administrarRoute = require('./routes/administrarRoute');
-app.disable('etag');
+let solicitarCotizacionRoute = require('./routes/solicitarCotizacionRoute');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -19,8 +19,7 @@ app.use('/catalogo', catalogoRoute);
 app.use('/signIn', signInRoute);
 app.use('/register/', registerRoute);
 app.use('/administrar/', administrarRoute);
-
-
+app.use('/solicitarCotizacion/', solicitarCotizacionRoute);
 /*
 app.get("/obtenerTipos",);
 

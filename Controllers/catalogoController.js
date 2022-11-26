@@ -5,8 +5,8 @@ module.exports = {
     get: (req, res) => {
         res.sendFile(path.resolve(__dirname, '../Views/catalogo.html'));
     },
-    ObtenerProductos: (req, res) => {
-        model.obtenerProductos().then(function (data) {
+    ObtenerProductosDisponibles: (req, res) => {
+        model.obtenerProductosDisponibles().then(function (data) {
             res.type('json');
             res.send({ "Success": true, "Data": data });
         }).catch(function (error) {

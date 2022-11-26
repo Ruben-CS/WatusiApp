@@ -1,80 +1,33 @@
+let _datosProductos;
 
-/*function getProducts() {
-    fetch('http://localhost:3000/catalogo/ObtenerProductos')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if (data.Success) {
-                let products = data.Data;
-                let template = '';
-                products.forEach(product => {
-                    template += `
-                        <tr>
-                            <td>${product.idproducto}</td>
-                            <td>${product.nombre}</td>
-                            <td>${product.descripcion}</td>
-                            <td>${product.precio}</td>
-                            <td>${product.cantidad}</td>
-                            <td>${product.idtipo}</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Editar</button>
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                    `
-                });
-                document.getElementById('products').innerHTML = template;
-            }
-        })
-}*/
-
-
-
-
-function init() {
-    var url = "/catalogo/ObtenerProductos";
-    var tipo = 'GET';
-    var datos = {};
-    var tipoDatos = 'JSON';
-    console.log(datos);
-    solicitudAjax(url, function () {
-        $.ajax({
-            Success: function (data) {
-                console.log(data);
-                /*if (data.Success) {
-                    let products = data.Data;
-                    let template = '';
-                    products.forEach(product => {
-                        template += `
-                        <tr>
-                            <td>${product.idproducto}</td>
-                            <td>${product.nombre}</td>
-                            <td>${product.descripcion}</td>
-                            <td>${product.precio}</td>
-                            <td>${product.cantidad}</td>
-                            <td>${product.idtipo}</td>
-                            <td>
-                                <button class="btn btn-primary btn-sm">Editar</button>
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                    `
-                    });
-                    document.getElementById('products').innerHTML = template;
-                }*/
-            }
-        });
-
-    }, datos, tipoDatos, tipo);
+function solicitarCotizacion() {
+    //go to the page
+    window.location.href = "/solicitarCotizacion/";
 }
-//function to show a modal
 
-
-
+function getAvailableProducts() {
+    $.ajax({
+        url: "/catalogo/ObtenerProductosDisponibles",
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data) {
+            _datosProductos = data;
+            $.each(data.Data, function (i, item) {
+                $("#tarjeta").append(
+                    `
+                        <div class='bg-white p-6 shadow-md rounded-md'>
+                        <h3 class='uppercase text-xl text-gray-800 font-semibold mb-3'>${item.nombre}</h3>
+                        <p class='mb-2'>${item.descripcion}</p>
+                        <p class='my-4'>${'Bs.' + item.precio}</p>
+                        <button onclick='solicitarCotizacion(${item.idproducto})' class='text-lg font-semibold text-gray-700 bg-indigo-100 px-4 py-1 block mx-auto rounded-md'>Solicitar cotizacion</button>
+                        </div>`);
+                _datosProductos = data;
+            });
+            console.log(_datosProductos);
+        }
+    });
+}
 
 $(document).ready(function () {
-    init();
-    $('#agregarTipo').click(function () {
-        init();
-    });
+    getAvailableProducts();
 });
