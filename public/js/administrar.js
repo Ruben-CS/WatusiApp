@@ -80,6 +80,8 @@ function editProduct(id) {
             $("#labelProductoModulo").hide();
             $("#productoTanque").hide();
             $("#labelProductoTanque").hide();
+            $("#btnAgregarProducto").hide();
+            $("#labeltipoProducto").hide();
             //TIPO 2 ES SI ES TANQUE
             if (item.tipo == 2) {
                 $.ajax({
@@ -90,27 +92,16 @@ function editProduct(id) {
                         _datosProductos = data;
                         $.each(data.Data, function (i, item) {
                             if (item.idproducto == id) {
+                                //TRAER LOS INPUTS DE TANQUE
                                 soyUnTanque();
-                                //MOSTRAR BOTON EDITAR
+                                //MOSTRAR Y OCULTAR BOTONES
                                 $("#btnModificarTanque").show();
-                                //OCULTAR BOTON AGREGAR NUEVO PRODUCTO
                                 $("#btnGuardarTanque").hide();
-
-                                $("#labeltipoProducto").hide();
-                                //MOSTRAR LOS CAMPOS DE TANQUE
-
                                 //ASIGNAR VALORES A LOS CAMPOS DE TANQUE
                                 $("#capacidadlitros").val(item.capacidadlitros);
                                 $("#diametro").val(item.diametro);
                                 $("#volumen").val(item.volumen);
                                 $("#espesor").val(item.espesor);
-                                //OCULTAR CHECKBOX DE MODULO
-
-                                //PONER EN VACIO LOS CAMPOS DEL MODULO
-
-                                //DESHABILITAR BOTON DE AGREGAR NUEVO PRODUCTO
-                                $("#btnAgregarProducto").prop("disabled", true);
-                                $("#btnAgregarProducto").hide();
                                 //CONSUMIR ENDPOINT PARA EDITAR TANQUE
                                 $("#btnModificarTanque").click(function () {
                                     consumeModificarEndpoint(id);
@@ -129,31 +120,18 @@ function editProduct(id) {
                         _datosProductos = data;
                         $.each(data.Data, function (i, item) {
                             if (item.idproducto == id) {
-                                //MOSTRAR LOS INPUTS DE MODULO
+                                //TRAER LOS INPUTS DE MODULO
                                 soyUnModulo();
-                                console.log("entre al if del modulo y soy tipo : " + item.tipo);
-                                //MOSTRAR BOTON EDITAR MODULO Y OCULTAR MODIFICAR TANQUE
+                                //MOSTRAR Y OCULTAR BOTONES
                                 $("#btnModificarModulo").show();
                                 $("#btnModificarTanque").hide();
-                                //OCULTAR EL LABEL DE PREGUNTA
-                                $("#labeltipoProducto").hide();
-                                //OCULTAR LABEL DEL CHECKBOX DE TANQUE
-
-                                //OCULTAR BOTON AGREGAR NUEVO PRODUCTO
-                                $("#btnAgregarProducto").hide();
-
-                                //MOSTRAR LOS CAMPOS DE MODULO
-
                                 //ASIGNAR VALORES A LOS CAMPOS DE MODULO
                                 $("#medida").val(item.medida);
                                 $("#cantpersonas").val(item.cantpersonas);
                                 $("#cantpuertas").val(item.cantpuertas);
                                 $("#cantventanas").val(item.cantventanas);
 
-                                //OCULTAR CHECKBOX DE TANQUE
-                                $("#productoTanque").hide();
-
-                                //CONSUMIR ENDPOINT PARA EDITAR TANQUE
+                                //CONSUMIR ENDPOINT PARA EDITAR MODULO
                                 $("#btnModificarModulo").click(function () {
                                     consumeModificarModulo(id);
                                 });
@@ -161,7 +139,6 @@ function editProduct(id) {
                         });
                     },
                 });
-
             }
         }
     });
