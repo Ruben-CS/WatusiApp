@@ -18,10 +18,20 @@ function guardarModulo() {
         getResultadoExitoso(response);
     }, datos, tipoDatos, tipo);
 }
-function moverseA(seccionFormulario) {
+function moverseVerTanque(seccionFormulario) {
+    location.hash = "#" + seccionFormulario;
+
+}
+function moverseVerModulo(seccionFormulario) {
     location.hash = "#" + seccionFormulario;
 }
+function moverseEditarTanque(seccionFormulario) {
+    location.hash = "#" + seccionFormulario;
 
+}
+function moverseEditarModulo(seccionFormulario) {
+    location.hash = "#" + seccionFormulario;
+}
 //PARA MODIFICAR MODULO
 function consumeModificarModulo(id) {
     var url = "/administrar/ModificarModulo";
@@ -46,7 +56,7 @@ function consumeModificarModulo(id) {
 }
 
 //PARA MODIFICAR TANQUE
-function consumeModificarEndpoint(id) {
+function consumeModificarTanque(id) {
     var url = "/administrar/ModificarTanque";
     var tipo = 'POST';
     var datos = {
@@ -89,7 +99,7 @@ function obtenerDatosTanqueConValidaciones(id) {
                     $("#espesor").val(item.espesor);
                     //CONSUMIR ENDPOINT PARA EDITAR TANQUE
                     $("#btnModificarTanque").click(function () {
-                        consumeModificarEndpoint(id);
+                        consumeModificarTanque(id);
                     });
                 }
             });
@@ -98,6 +108,7 @@ function obtenerDatosTanqueConValidaciones(id) {
 }
 
 function verDetalleModulo(id) {
+    $(".container").show();
     $.ajax({
         url: "/administrar/ObtenerModulos",
         type: 'GET',
@@ -107,7 +118,7 @@ function verDetalleModulo(id) {
             _datosProductos.Data.forEach(function (item) {
 
                 if (item.idproducto == id) {
-                    moverseA("seccionFormulario");
+                    moverseVerModulo("seccionFormulario");
                     $("#nombre").val(item.nombre);
                     $("#descripcion").val(item.descripcion);
                     $("#precio").val(item.precio);
@@ -147,6 +158,7 @@ function verDetalleModulo(id) {
     });
 }
 function verDetalleTanque(id) {
+    $(".container").show();
     $.ajax({
         url: "/administrar/ObtenerTanques",
         type: 'GET',
@@ -156,7 +168,7 @@ function verDetalleTanque(id) {
             _datosProductos.Data.forEach(function (item) {
 
                 if (item.idproducto == id) {
-                    moverseA("seccionFormulario");
+                    moverseVerTanque("seccionFormulario");
                     $("#nombre").val(item.nombre);
                     $("#descripcion").val(item.descripcion);
                     $("#precio").val(item.precio);
@@ -227,38 +239,13 @@ function obtenerDatosModuloConValidaciones(id) {
     });
 }
 
-function seeProductDetails(id) {
-    $.ajax({
-        url: "/administrar/ObtenerModulos",
-        type: 'GET',
-        dataType: 'JSON',
-        success: function (data) {
-            _datosProductos = data;
-            $.each(data.Data, function (i, item) {
-                if (item.idproducto == id) {
-                    $("#nombre").val(item.nombre);
-                    $("#descripcion").val(item.descripcion);
-                    $("#precio").val(item.precio);
-                    $("#medida").val(item.medida);
-                    $("#cantpersonas").val(item.cantpersonas);
-                    $("#cantpuertas").val(item.cantpuertas);
-                    $("#cantventanas").val(item.cantventanas);
-                    $("#capacidadlitros").val(item.capacidadlitros);
-                    $("#diametro").val(item.diametro);
-                    $("#volumen").val(item.volumen);
-                    $("#espesor").val(item.espesor);
-                }
-            });
-        },
-    });
-}
-
 function editProductModulo(id) {
+    $(".container").show();
     _datosProductos.Data.forEach(function (item) {
         $("#tituloAgregarNuevoProducto").hide();
         $("#tituloEditarProducto").show();
         if (item.idproducto == id) {
-            moverseA("seccionFormulario");
+            moverseEditarModulo("seccionFormulario");
             $("#nombre").val(item.nombre);
             $("#descripcion").val(item.descripcion);
             $("#precio").val(item.precio);
@@ -273,13 +260,13 @@ function editProductModulo(id) {
     });
 }
 function editProductTanque(id) {
+    $(".container").show();
     $("#tituloAgregarNuevoProducto").hide();
-    $("#tituloEditarProducto").show();
     $("#tituloEditarProducto").show();
     _datosProductos.Data.forEach(function (item) {
         if (item.idproducto == id) {
 
-            moverseA("seccionFormulario");
+            moverseEditarTanque("seccionFormulario");
             $("#nombre").val(item.nombre);
             $("#descripcion").val(item.descripcion);
             $("#precio").val(item.precio);
@@ -438,7 +425,7 @@ function getAllProducts() {
                             <button href='#seccionFormulario' id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-100' onclick='editProductModulo(${item.idproducto})'>Editar</button>
                             </p></div></td>`:
                         `<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>
-                            <button href='#seccionFormulario' id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-100' onclick='editProductTanque(${item.idproducto})'>Editar</button>
+                            <button id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-100' onclick='editProductTanque(${item.idproducto})'>Editar</button>
                             </p></div></td>`}
 
                             ${item.tipo == 1 ? `<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>
@@ -449,50 +436,6 @@ function getAllProducts() {
                             </p></div></td>`}
 
                         </tr >`);
-
-                    /*let row =
-                    "<tr>" +
-                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.nombre +
-                    "</p></div></td>" +
-
-                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.descripcion +
-                    "</p></div></td>" +
-
-                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.tipo +
-                    "</p></div></td>" +
-
-                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.precio +
-                    "</p></div></td>" +
-
-
-                    "<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" + item.estado +
-                    "</p></div></td>" +
-
-                    "<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" +
-                    "<button id='btnCambiarEstado' class='text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800' onclick='changeStatus(" + item.idproducto + ")'>Cambiar estado</button>" +
-                    "</p></div></td>" +
-
-                    "<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" +
-                    "<button id='btnEliminar' class='text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900' onclick='deleteProduct(" + item.idproducto + ")'>Eliminar</button>" +
-                    "</p></div></td>" +
-
-                    "<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" +
-                    "<button href='#seccionFormulario' id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-100' onclick='editProduct(" + item.idproducto + ")'>Editar</button>" +
-                    "</p></div></td>" +
-
-
-                    "<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>" +
-                    "<button id='btnEditar' class='text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2' onclick='seeProduct(" + item.idproducto + ")'>VER</button>" +
-                    "</p></div></td>" +
-                    "</tr>";*/
-                /*if (item.estado != true) {
-                    $("#btnCambiarEstado").removeClass('text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900');
-                }
-                else {
-                    $("#btnCambiarEstado").removeClass('text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900');
-                }*/
-
-                //$("#tblProductos").append(row);
 
                 _datosProductos = data;
                 //$("#tblProducto>tbody").append(row);
@@ -533,7 +476,7 @@ function soyUnTanque() {
 }
 
 function init() {
-
+    $(".container").hide();
     getAllProducts();
 
     //OCULTAR BOTONES DE EDITAR
@@ -562,6 +505,8 @@ function init() {
         soyUnTanque();
     });
 }
+//funcion si se toca un boton
+
 
 function isTanqueOrModulo() {
     if ($("#productoModulo").prop("checked")) {
@@ -579,5 +524,9 @@ $(document).ready(function () {
     $("#btnAgregarProducto").click(function () {
         isTanqueOrModulo();
     });
-
+    $("#closeModal").click(function () {
+        $(".container").hide();
+        console.log("close");
+        location.reload();
+    });
 });

@@ -96,6 +96,18 @@ module.exports = {
         });
     },
     ModificarModulo: (req, res) => {
+        var data = {
+            idproducto: req.body.idproducto,
+            nombre: req.body.nombre,
+            descripcion: req.body.descripcion,
+            precio: req.body.precio,
+            estado: req.body.estado,
+            tipo: req.body.tipo,
+            medida: req.body.medida,
+            cantpersonas: req.body.cantpersonas,
+            cantpuertas: req.body.cantpuertas,
+            cantventanas: req.body.cantventanas
+        };
         model.modificarModulo(data).then(function () {
             res.type('json');
             res.send({ "Success": true });

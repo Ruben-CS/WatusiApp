@@ -33,13 +33,13 @@ function getResultadoExitoso(resultado) {
     }
     if (resultado.Success) {
         toastr.success("BIENVENIDO");
+        window.location.href = "/";
     } else {
         toastr.error("Usuario o contraseña incorrectos");
         //
     }
 }
 
-//create a function to disable the button when its not valid
 function disableButton() {
 
 }
