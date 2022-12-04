@@ -1,6 +1,6 @@
 let _datosProductos;
 function guardarModulo() {
-    var url = "/administrar/GuardarModulo";
+    var url = "/administrar/AgregarProducto";
     var tipo = 'POST';
     var datos = {
         nombre: $("#nombre").val(),
@@ -32,9 +32,10 @@ function moverseEditarTanque(seccionFormulario) {
 function moverseEditarModulo(seccionFormulario) {
     location.hash = "#" + seccionFormulario;
 }
+
 //PARA MODIFICAR MODULO
 function consumeModificarModulo(id) {
-    var url = "/administrar/ModificarModulo";
+    var url = "/administrar/ModificarProducto";
     var tipo = 'POST';
     var datos = {
         idproducto: id,
@@ -42,22 +43,26 @@ function consumeModificarModulo(id) {
         descripcion: $("#descripcion").val(),
         precio: $("#precio").val(),
         estado: true,
-        tipo: 1,
+        tipo: "M",
         medida: $("#medida").val(),
         cantpersonas: $("#cantpersonas").val(),
         cantpuertas: $("#cantpuertas").val(),
         cantventanas: $("#cantventanas").val(),
+        "capacidadlitros": $("#capacidadlitros").val(),
+        "diametro": $("#diametro").val(),
+        "volumen": $("#volumen").val(),
+        "espesor": $("#espesor").val(),
     };
     var tipoDatos = 'JSON';
     solicitudAjax(url, function (response) {
         getResultadoExitoso(response);
+        location.reload();
     }, datos, tipoDatos, tipo);
-    location.reload();
 }
 
 //PARA MODIFICAR TANQUE
 function consumeModificarTanque(id) {
-    var url = "/administrar/ModificarTanque";
+    var url = "/administrar/ModificarProducto";
     var tipo = 'POST';
     var datos = {
         idproducto: id,
@@ -65,20 +70,24 @@ function consumeModificarTanque(id) {
         descripcion: $("#descripcion").val(),
         precio: $("#precio").val(),
         estado: true,
-        tipo: 2,
-        capacidadlitros: $("#capacidadlitros").val(),
-        diametro: $("#diametro").val(),
-        volumen: $("#volumen").val(),
-        espesor: $("#espesor").val(),
+        tipo: "T",
+        medida: $("#medida").val(),
+        cantpersonas: $("#cantpersonas").val(),
+        cantpuertas: $("#cantpuertas").val(),
+        cantventanas: $("#cantventanas").val(),
+        "capacidadlitros": $("#capacidadlitros").val(),
+        "diametro": $("#diametro").val(),
+        "volumen": $("#volumen").val(),
+        "espesor": $("#espesor").val(),
     };
     var tipoDatos = 'JSON';
     solicitudAjax(url, function (response) {
         getResultadoExitoso(response);
     }, datos, tipoDatos, tipo);
-    location.reload();
+
 }
 
-function obtenerDatosTanqueConValidaciones(id) {
+/*function obtenerDatosTanqueConValidaciones(id) {
     $.ajax({
         url: "/administrar/ObtenerTanques",
         type: 'GET',
@@ -88,7 +97,6 @@ function obtenerDatosTanqueConValidaciones(id) {
             $.each(data.Data, function (i, item) {
                 if (item.idproducto == id) {
                     //TRAER LOS INPUTS DE TANQUE
-                    soyUnTanque();
                     //MOSTRAR Y OCULTAR BOTONES
                     $("#btnModificarTanque").show();
                     $("#btnGuardarTanque").hide();
@@ -99,18 +107,18 @@ function obtenerDatosTanqueConValidaciones(id) {
                     $("#espesor").val(item.espesor);
                     //CONSUMIR ENDPOINT PARA EDITAR TANQUE
                     $("#btnModificarTanque").click(function () {
-                        consumeModificarTanque(id);
+                        //consumeModificarTanque(id);
                     });
                 }
             });
         },
     });
-}
+}*/
 
 function verDetalleModulo(id) {
     $(".container").show();
     $.ajax({
-        url: "/administrar/ObtenerModulos",
+        url: "/administrar/ObtenerProductos",
         type: 'GET',
         dataType: 'JSON',
         success: function (data) {
@@ -128,7 +136,13 @@ function verDetalleModulo(id) {
                     $("#cantventanas").val(item.cantventanas);
                 }
             });
-            soyUnModulo();
+            $("#btnAgregar").hide();
+            //soyUnModulo();
+            $("#showMedida").show();
+            $("#showCantidadPersonas").show();
+            $("#showCantidadPuertas").show();
+            $("#showCantidadVentanas").show();
+
             $("#tituloDetalleProducto").show();
             $("#tituloAgregarNuevoProducto").hide();
             $("#tituloModificarProducto").hide();
@@ -136,7 +150,6 @@ function verDetalleModulo(id) {
             $("#btnGuardarModulo").hide();
             $("#btnModificarModulo").hide();
             $("#btnModificarTanque").hide();
-            $("#btnAgregarProducto").hide();
             $("#tituloEditarProducto").hide();
             $("#labeltipoProducto").hide();
             $("#labelProductoModulo").hide();
@@ -160,7 +173,7 @@ function verDetalleModulo(id) {
 function verDetalleTanque(id) {
     $(".container").show();
     $.ajax({
-        url: "/administrar/ObtenerTanques",
+        url: "/administrar/ObtenerProductos",
         type: 'GET',
         dataType: 'JSON',
         success: function (data) {
@@ -168,7 +181,7 @@ function verDetalleTanque(id) {
             _datosProductos.Data.forEach(function (item) {
 
                 if (item.idproducto == id) {
-                    moverseVerTanque("seccionFormulario");
+                    moverseVerModulo("seccionFormulario");
                     $("#nombre").val(item.nombre);
                     $("#descripcion").val(item.descripcion);
                     $("#precio").val(item.precio);
@@ -178,7 +191,14 @@ function verDetalleTanque(id) {
                     $("#espesor").val(item.espesor);
                 }
             });
-            soyUnTanque();
+            //soyUnModulo();
+            $("#btnAgregar").hide();
+
+            $("#showCapacidadLitros").show();
+            $("#showDiametro").show();
+            $("#showVolumen").show();
+            $("#showEspesor").show();
+
             $("#tituloDetalleProducto").show();
             $("#tituloAgregarNuevoProducto").hide();
             $("#tituloModificarProducto").hide();
@@ -186,8 +206,7 @@ function verDetalleTanque(id) {
             $("#btnGuardarModulo").hide();
             $("#btnModificarModulo").hide();
             $("#btnModificarTanque").hide();
-            $("#btnAgregarProducto").hide();
-
+            $("#tituloEditarProducto").hide();
             $("#labeltipoProducto").hide();
             $("#labelProductoModulo").hide();
             $("#labelProductoTanque").hide();
@@ -207,36 +226,106 @@ function verDetalleTanque(id) {
         },
     });
 }
-
-function obtenerDatosModuloConValidaciones(id) {
-    $.ajax({
-        url: "/administrar/ObtenerModulos",
-        type: 'GET',
-        dataType: 'JSON',
-        success: function (data) {
-            _datosProductos = data;
-            $.each(data.Data, function (i, item) {
-                if (item.idproducto == id) {
-                    //TRAER LOS INPUTS DE MODULO
-                    soyUnModulo();
-                    console.log("entre al if del modulo y soy tipo : " + item.tipo);
-                    //MOSTRAR Y OCULTAR BOTONES
-                    $("#btnModificarModulo").show();
-                    $("#btnModificarTanque").hide();
-                    //ASIGNAR VALORES A LOS CAMPOS DE MODULO
-                    $("#medida").val(item.medida);
-                    $("#cantpersonas").val(item.cantpersonas);
-                    $("#cantpuertas").val(item.cantpuertas);
-                    $("#cantventanas").val(item.cantventanas);
-
-                    //CONSUMIR ENDPOINT PARA EDITAR MODULO
-                    $("#btnModificarModulo").click(function () {
-                        consumeModificarModulo(id);
-                    });
-                }
+function editProductModulo2(id) {
+    $(".container").show();
+    limpiarModulo();
+    _datosProductos.Data.forEach(function (item) {
+        $("#tituloAgregarNuevoProducto").hide();
+        $("#tituloEditarProducto").show();
+        if (item.idproducto == id) {
+            moverseEditarModulo("seccionFormulario");
+            $("#btnAgregar").hide();
+            $("#nombre").val(item.nombre);
+            $("#descripcion").val(item.descripcion);
+            $("#precio").val(item.precio);
+            $("#productoModulo").hide();
+            $("#labelProductoModulo").hide();
+            $("#productoTanque").hide();
+            $("#labelProductoTanque").hide();
+            $("#labeltipoProducto").hide();
+            $("#btnModificarModulo").show();
+            $("#btnModificarTanque").hide();
+            //ASIGNAR VALORES A LOS CAMPOS DE MODULO
+            $("#showMedida").show();
+            $("#showCantidadPersonas").show();
+            $("#showCantidadPuertas").show();
+            $("#showCantidadVentanas").show();
+            $("#medida").val(item.medida);
+            $("#cantpersonas").val(item.cantpersonas);
+            $("#cantpuertas").val(item.cantpuertas);
+            $("#cantventanas").val(item.cantventanas);
+            $("#btnModificarModulo").click(function () {
+                consumeModificarModulo(id);
             });
-        },
+            console.log(item.medida);
+            //obtenerDatosModuloConValidaciones(id);
+        }
+
     });
+}
+function editProductTanque2(id) {
+    limpiarTanque();
+    console.log(_datosProductos);
+    $(".container").show();
+    _datosProductos.Data.forEach(function (item) {
+        $("#tituloAgregarNuevoProducto").hide();
+        $("#tituloEditarProducto").show();
+        if (item.idproducto == id) {
+            $("#btnAgregar").hide();
+            moverseEditarModulo("seccionFormulario");
+            $("#nombre").val(item.nombre);
+            $("#descripcion").val(item.descripcion);
+            $("#precio").val(item.precio);
+            $("#productoModulo").hide();
+            $("#labelProductoModulo").hide();
+            $("#productoTanque").hide();
+            $("#labelProductoTanque").hide();
+            $("#labeltipoProducto").hide();
+            $("#btnModificarModulo").hide();
+            $("#btnModificarTanque").show();
+            $("#showMedida").hide();
+            $("#showCantidadPersonas").hide();
+            $("#showCantidadPuertas").hide();
+            $("#showCantidadVentanas").hide();
+
+            $("#showCapacidadLitros").show();
+            $("#showDiametro").show();
+            $("#showVolumen").show();
+            $("#showEspesor").show();
+            $("#capacidadlitros").val(item.capacidadlitros);
+            $("#diametro").val(item.diametro);
+            $("#volumen").val(item.volumen);
+            $("#espesor").val(item.espesor);
+
+            $("#btnModificarTanque").click(function () {
+                consumeModificarTanque(id);
+            });
+            //obtenerDatosModuloConValidaciones(id);
+        }
+
+    });
+}
+
+function changeStatus(id) {
+    console.log(_datosProductos);
+    _datosProductos.Data.forEach(function (item) {
+        if (item.idproducto == id) {
+            var url = "/administrar/DeshabilitarProducto";
+            var tipo = 'POST';
+            var datos = {
+                idproducto: item.idproducto,
+                estado: !item.estado,
+            };
+            var tipoDatos = 'JSON';
+            solicitudAjax(url, function (response) {
+                //getResultadoExitoso(response);
+            }, datos, tipoDatos, tipo);
+            console.log(_datosProductos);
+            location.reload();
+        }
+    });
+
+
 }
 
 function editProductModulo(id) {
@@ -253,7 +342,6 @@ function editProductModulo(id) {
             $("#labelProductoModulo").hide();
             $("#productoTanque").hide();
             $("#labelProductoTanque").hide();
-            $("#btnAgregarProducto").hide();
             $("#labeltipoProducto").hide();
             obtenerDatosModuloConValidaciones(id);
         }
@@ -274,7 +362,6 @@ function editProductTanque(id) {
             $("#labelProductoModulo").hide();
             $("#productoTanque").hide();
             $("#labelProductoTanque").hide();
-            $("#btnAgregarProducto").hide();
             $("#labeltipoProducto").hide();
             obtenerDatosTanqueConValidaciones(id);
         }
@@ -314,8 +401,8 @@ function deleteProduct(id) {
     location.reload();
 }
 
-function guardarTanque() {
-    var url = "/administrar/GuardarTanque";
+/*function guardarTanque() {
+    var url = "/administrar/AgregarProducto";
     var tipo = 'POST';
     var datos = {
         nombre: $("#nombre").val(),
@@ -327,13 +414,17 @@ function guardarTanque() {
         diametro: $("#diametro").val(),
         volumen: $("#volumen").val(),
         espesor: $("#espesor").val(),
+        medida: $("#espesor").val(),
+        cantpersonas: $("#cantpersonas").val(),
+        cantpuertas: $("#cantpuertas").val(),
+        cantventanas: $("#cantventanas").val(),
     };
     var tipoDatos = 'JSON';
     solicitudAjax(url, function (response) {
         getResultadoExitoso(response);
     }, datos, tipoDatos, tipo);
     //console.log(datos);
-}
+}*/
 function limpiarTanque() {
     $("#nombre").val("");
     $("#descripcion").val("");
@@ -375,6 +466,7 @@ function getResultadoExitoso(resultado) {
     if (resultado.Success) {
         toastr.success("Consulta exitosa", "Éxito");
         _datosProductos = resultado.Data;
+        location.reload();
         //console.log(resultado);
         //mostrarProductos();
     } else {
@@ -398,7 +490,7 @@ function getAllProducts() {
 
                             <td class='px-5 py-5 border-b border-gray-200 bg-white text-sm><div class='class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>${item.descripcion}</p></div></td>
             
-                            ${item.tipo == 1 ? `<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm><div class='class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>Modulo</p></div></td>` : `<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm><div class='class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>Tanque</p></div></td>`}
+                            ${item.tipo == "M" ? `<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm><div class='class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>Modulo</p></div></td>` : `<td class='px-5 py-5 border-b border-gray-200 bg-white text-sm><div class='class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>Tanque</p></div></td>`}
                             
                             <td class='px-5 py-5 border-b border-gray-200 bg-white text-sm><div class='class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>${'Bs. ' + item.precio}</p></div></td>
 
@@ -421,14 +513,14 @@ function getAllProducts() {
                             <button id='btnEliminar' class='text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900' onclick='deleteProduct(${item.idproducto})'>Eliminar</button>
                             </p></div></td>
                             
-                            ${item.tipo == 1 ? `<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>
-                            <button href='#seccionFormulario' id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-100' onclick='editProductModulo(${item.idproducto})'>Editar</button>
+                            ${item.tipo == "M" ? `<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>
+                            <button href='#seccionFormulario' id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-100' onclick='editProductModulo2(${item.idproducto})'>Editar</button>
                             </p></div></td>`:
                         `<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>
-                            <button id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-100' onclick='editProductTanque(${item.idproducto})'>Editar</button>
+                            <button id='btnEditar' class='text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-100' onclick='editProductTanque2(${item.idproducto})'>Editar</button>
                             </p></div></td>`}
 
-                            ${item.tipo == 1 ? `<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>
+                            ${item.tipo == "M" ? `<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>
                             <button id='btnEditar' class='text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2' onclick='verDetalleModulo(${item.idproducto})'>VER</button>
                             </p></div></td>`:
                         `<td class=' py-5 border-b border-gray-200 bg-white text-sm'><div class='ml-3'><p class='text-gray-900 whitespace-no-wrap'>
@@ -509,18 +601,39 @@ function init() {
 
 
 function isTanqueOrModulo() {
-    if ($("#productoModulo").prop("checked")) {
-        guardarModulo();
-        limpiarModulo();
-    } else {
-        guardarTanque();
-        limpiarTanque();
-    }
+    $("#btnAgregar").show();
+    $(".container").show();
+    $("#btnAgregar").click(function () {
+        var url = "/administrar/AgregarProducto";
+        var tipo = 'POST';
+        var datos = {
+            nombre: $("#nombre").val(),
+            descripcion: $("#descripcion").val(),
+            precio: $("#precio").val(),
+            estado: true,
+            tipo: $("#productoModulo").prop("checked") ? "M" : "T",
+            medida: $("#medida").val(),
+            cantpersonas: $("#cantpersonas").val(),
+            cantpuertas: $("#cantpuertas").val(),
+            cantventanas: $("#cantventanas").val(),
+            capacidadlitros: $("#capacidadlitros").val(),
+            diametro: $("#diametro").val(),
+            volumen: $("#volumen").val(),
+            espesor: $("#espesor").val(),
+        };
+        var tipoDatos = 'JSON';
+        solicitudAjax(url, function (response) {
+            getResultadoExitoso(response);
+            location.reload();
+        }, datos, tipoDatos, tipo);
+    });
 }
 
 
 $(document).ready(function () {
     init();
+    limpiarModulo();
+    limpiarTanque();
     $("#btnAgregarProducto").click(function () {
         isTanqueOrModulo();
     });

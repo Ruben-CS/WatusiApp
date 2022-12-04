@@ -71,7 +71,7 @@
                 </nav>
             </div>
         </div>
-
+    
         <!--AQUI EMPIEZA LA TABLA-->
         <div class=p-8 rounded-md w-full">
             <div class=" flex items-center justify-between pb-6">
@@ -79,6 +79,11 @@
                     <h1 class=" text-center text-sm text-gray-600 font-semibold">Tabla de productos</h1>
                     <span class="text-xs">All products item</span>
                 </div>
+            </div>
+            <div class="text-right">
+                <button id="btnAgregarProducto"
+                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-green-700 font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Agregar
+                    nuevo Producto</button>
             </div>
             <div>
                 <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -153,20 +158,11 @@
                             </tbody>
         
                         </table>
-                        <!--<div class="flex items-center justify-between">
-                                                        
-                                                                            <div class="lg:ml-40 ml-10 space-x-8">
-                                                                                <button id="btnMostrarBotonAgregar"
-                                                                                    class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Agregar Nuevo
-                                                                                    Producto</button>
-                                                                                <button
-                                                                                    class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Create</button>
-                                                                            </div>
-                                                                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
+        
         <!--AQUI TERMINA LA TABLA-->
         <div class="container w-full md:px-15 mx-auto pt-10">
             <div class="md:grid lg:grid-cols-1 md:grid-cols-1 mlg:grid-cols-1 md:gap-5 md:space-y-0 px-10 md:px-0 mx-auto">
@@ -309,15 +305,14 @@
                                     </div>
                                 </div>
                                 <div class="modal-actions bg-gray-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                    <button id="btnAgregarProducto"
-                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-green-700 font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Agregar
-                                        nuevo Producto</button>
                                     <button id="btnModificarTanque"
                                         class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-yellow-500 font-medium text-white hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Modificar
                                         Tanque</button>
                                     <button id="btnModificarModulo"
                                         class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-yellow-500 font-medium text-white hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Modificar
                                         Módulo</button>
+                                    <button id="btnAgregar"
+                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-green-500 font-medium text-white hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Agregar</button>
                                 </div>
                             </div>
                         </div>

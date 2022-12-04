@@ -1,6 +1,7 @@
 const promise = require('bluebird');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://postgres:11396752Sc@localhost:5432/BDFinalProject");
+var db = pgp("postgres://postgres:11396752Sc@localhost:5432/bdfinalproject");
+//var db = pgp("postgres://postgres:11396752Sc@localhost:5432/bdfinalproject1");
 
 class dao {
     constructor() {
@@ -10,6 +11,17 @@ class dao {
             db.any(sql, params).then(data => {
                 resolve(data);
             }) .catch(function (err) {
+                console.log('Error running sql ' + sql);
+                console.log(err);
+                reject(err);
+            });
+        });
+    }
+    transaccion(sql, params = []) {
+        return new promise((resolve, reject) => {
+            db.tx(sql, params).then(data => {
+                resolve(data);
+            }).catch(function (err) {
                 console.log('Error running sql ' + sql);
                 console.log(err);
                 reject(err);
