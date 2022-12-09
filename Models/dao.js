@@ -50,6 +50,24 @@ class dao {
             });
         });
     }
+    master_detail(sql_master, sql_detail, params_m = [], list_params_d = []) {
+        return new promise((resolve, reject) => {
+            db.tx(async t => {
+                const id = await t.one(sql_master, params_m, a => +a.idpedido);
+                list_params_d.forEach(async params_d => {
+                    params_d[0] = id;
+                    await t.none(sql_detail, params_d);
+                });
+                return id;
+            }).then(data => {
+                resolve(data);
+            }).catch(function (err) {
+                console.log('Error running sql ' + sql_master + ' ' + sql_detail);
+                console.log(err);
+                reject(err);
+            });
+        });
+    }
 }
 
 module.exports = dao;

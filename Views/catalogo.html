@@ -6,11 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Base - Tailwind CSS Startup Template</title>
-    <script src="/public/js/toastr.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/public/css/toastr.css">
     <script src="/public/js/jquery-3.6.1.js"></script>
+    <script src="/public/js/toastr.js"></script>
     <script src="/public/js/utiles.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="/public/js/catalogo.js"></script>
+
+
     <link rel="shortcut icon" href="#" />
     <script></script>
 </head>
@@ -54,11 +57,12 @@
                     </div>
                     <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-center lg:gap-x-12">
                         <a href="/" class="font-semibold text-gray-900 hover:text-gray-900">Inicio</a>
-    
+
                         <a href="/catalogo" class="font-semibold text-gray-900 hover:text-gray-900">Catálogo</a>
-    
-                        <a href="/administrar" class="font-semibold text-gray-900 hover:text-gray-900">Administrar Productos</a>
-    
+
+                        <a href="/administrar" class="font-semibold text-gray-900 hover:text-gray-900">Administrar
+                            Productos</a>
+
                         <a href="/encuentranos" class="font-semibold text-gray-900 hover:text-gray-900">Encuéntranos</a>
                     </div>
                     <div class="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
@@ -72,14 +76,103 @@
                 </nav>
             </div>
         </div>
-        //add a tittle in the text-center
-        
-        <div class="container w-full md:px-40 mx-auto py-20">
+        <div class="container w-full md:px-40 mx-auto pt-20">
             <div id="tarjeta"
-                class="md:grid lg:grid-cols-3 md:grid-cols-2 mlg:grid-cols-3 md:gap-10 space-y-6 md:space-y-0 px-10 md:px-0 mx-auto">
+                class="md:grid lg:grid-cols-4 md:grid-cols-2 mlg:grid-cols-3 md:gap-10 space-y-6 md:space-y-0 px-10 md:px-0 mx-auto">
             </div>
         </div>
-</div>
+        
+        <div class="container mx-auto mt-0">
+            <div id="" class="flex shadow-md my-10">
+                <div id="tblCarrito" class="w-3/4 bg-white px-10 py-10">
+                    <div id="addItems" class="flex justify-between border-b pb-8">
+        
+                    </div>
+                    <div id="showCantidad">
+                        <div id="" class="flex justify-center w-1/5">
+                            <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                                <path
+                                    d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                            </svg>
+                            <input class="cantidad1 mx-2 border text-center w-8" type="number" value="1">
+                            <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                                <path
+                                    d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                            </svg>
+                        </div>
+                    </div>
+        
+                    <div class="flex mt-10 mb-5">
+                        <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Detalles de productos</h3>
+                        <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Cantidad
+                        </h3>
+                        <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Precio
+                        </h3>
+                        <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total
+                        </h3>
+                    </div>
+        
+                    <!--<div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+                                                                                                                                                                                                                                                                                        <div class="flex w-2/5">
+                                                                                                                                                                                                                                                                                                                <div class="w-20">
+                                                                                                                                                                                                                                                                                                                    <img class="h-24" src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z" alt="">
+                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                <div class='flex flex-col justify-between ml-4 flex-grow'>
+                                                                                                                                                                                                                                                                                                                    <span id='nombreproducto' class='font-bold text-sm'>Nombre producto</span>
+                                                                                                                                                                                                                                                                                                                    <span class='text-red-500 text-xs'>Apple</span>
+                                                                                                                                                                                                                                                                                                                    <a href='#' class='font-semibold hover:text-red-500 text-gray-500 text-xs'>Remove</a>
+                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                        <div class="flex justify-center w-1/5">
+                                                                                                                                                                                                                                                                                                            <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                                                                                                                                                                                                                                                                                                                <path
+                                                                                                                                                                                                                                                                                                                    d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                                                                                                                                                                                                                                                                                                            </svg>
+                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                            <input class="mx-2 border text-center w-8" type="text" value="1">
+                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                            <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                                                                                                                                                                                                                                                                                                                <path
+                                                                                                                                                                                                                                                                                                                    d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                                                                                                                                                                                                                                                                                                            </svg>
+                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                <span class="text-center w-1/5 font-semibold text-sm">$400.00</span>
+                                                                                                                                                                                                                                                                                                <span class="text-center w-1/5 font-semibold text-sm">$400.00</span>
+                                                                                                                                                                                                                                                                                    </div>-->
+        
+                </div>
+        
+                <div id="summary" class="w-1/4 px-8 py-10">
+                    <h1 class="font-semibold text-2xl border-b pb-8">Resumen</h1>
+        
+                    <div>
+                        <label class="font-medium inline-block mb-1 text-sm uppercase"> ¿desea añadir envio?</label>
+        
+                        <div class="py-4 border mb-2 border-gray-200 rounded dark:border-gray-700">
+                            <label for="kmdesdescz" class="pl-2 font-semibold inline-block mb-3 text-sm">Cantidad de KM desde
+                                Santa
+                                Cruz</label>
+                            <input type="int" id="kmdesdescz" placeholder="Ingresa un número" class="p-2 text-sm w-full">
+                            <button class="ml-2 mt-2 bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Generar
+                                precio</button>
+                        </div>
+                    </div>
+                    <div id="divPrices" class="flex justify-between mt-10 mb-5">
+                    </div>
+                    <div class="border-t mt-8">
+                        <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+                            <span>Total cost</span>
+                            <span>$600</span>
+                        </div>
+                        <button id="guardarPedido"
+                            class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">SOLICITAR</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
     </div>
 </body>
 

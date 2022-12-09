@@ -9,7 +9,7 @@ let signInRoute = require('./routes/signInRoute');
 let registerRoute = require('./routes/registerRoute');
 let administrarRoute = require('./routes/administrarRoute');
 let solicitarCotizacionRoute = require('./routes/solicitarCotizacionRoute');
-
+let pedidoRoute = require('./routes/pedidoRoute');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/public", express.static(__dirname + "/public"));
@@ -20,6 +20,7 @@ app.use('/signIn', signInRoute);
 app.use('/register/', registerRoute);
 app.use('/administrar/', administrarRoute);
 app.use('/solicitarCotizacion/', solicitarCotizacionRoute);
+app.use('/pedido/', pedidoRoute);
 
 app.listen(port, () => {
     console.log(`Escuchando en: http://localhost:${port}`);
