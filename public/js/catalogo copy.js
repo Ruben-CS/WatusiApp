@@ -1,6 +1,4 @@
 let _datosProductos;
-
-
 let _productosIDS = JSON.parse(localStorage.getItem('_productosIDS'));
 if (_productosIDS == null) {
     _productosIDS = [];
@@ -13,6 +11,12 @@ if (list_data_d == null) {
 }
 list_data_d = [...new Set(list_data_d)];
 
+let lista_datitos = JSON.parse(localStorage.getItem('lista_datitos'));
+if (lista_datitos == null) {
+    lista_datitos = [];
+}
+lista_datitos = [...new Set(lista_datitos)];
+
 let subtotales = 0;
 
 
@@ -22,27 +26,9 @@ let subtotales = 0;
 }*/
 
 function AgregarAlCarrito(id) {
-    /*let producto = _datosProductos.Data.find(x => x.idproducto == id);
-    let _productosIDS = JSON.parse(localStorage.getItem('_productosIDS'));
-    /*if (_productosIDS == null) {
-        _productosIDS = [];
-    }
-    _productosIDS.push(producto);
-    localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
-    console.log("estos son los ids que se escogieron", _productosIDS);*/
 
-    //add to the array every time the button is clicked
-    //let _productosIDS = JSON.parse(localStorage.getItem('_productosIDS'));
     let product = _datosProductos.Data.find(x => x.idproducto == id);
-    $.each(_productosIDS, function (i, item) {
-        if (_productosIDS[i].idproducto == id) {
-            toastr.error('El producto ya se encuentra en el carrito');
-            _productosIDS = _productosIDS.filter(x => x.idproducto != id);
-        }
-        else {
-            _productosIDS.push(product);
-        }
-    });
+    _productosIDS.push(product);
 
     _productosIDS = [...new Set(_productosIDS)];
     localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
@@ -64,50 +50,21 @@ function getAvailableProducts() {
             _datosProductos = data;
             $.each(data.Data, function (i, item) {
                 if (item.estado == true) {
-                $("#tarjeta").append(
-                    `
+                    $("#tarjeta").append(
+                        `
                         <div class='bg-white p-3 shadow-md rounded-md'>
                         <h3 class='uppercase text-l text-gray-800 font-semibold mb-2'>${item.nombre}</h3>
                         <p class='mb-1'>${item.descripcion}</p>
                         <p class='my-2'>${'Bs.' + item.precio}</p>
                         <button id="btnAgregar" onclick='AgregarAlCarrito(${item.idproducto})' class='text-lg font-semibold text-gray-700 bg-indigo-100 px-4 py-1 block mx-auto rounded-md'>Agregar</button>
                         </div>`);
-                _datosProductos = data;
+                    _datosProductos = data;
                 }
             });
             //console.log(_productosIDS);
             //console.log(_datosProductos);
         }
     });
-}
-
-function GetList_data_d() {
-    //list_data_d.push("idproducto" = item2.idproducto,);
-    //let product = _datosProductos.Data.find(x => x.idproducto == id);
-    //let list_data_d = [];
-    /*$.each(_productosIDS, function (i, item) {
-        list_data_d.push({
-            list_data_d: {
-                idproducto: item.idproducto,
-                cantidad: 2,
-                precioproducto: item.precio,
-                subtotal: item.cantidad * item.precio,
-            }
-        });
-        _productosIDS.push(product);
-
-        _productosIDS = [...new Set(_productosIDS)];
-        localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
-        console.log(_productosIDS);
-        //_productosIDS = [...new Set(_productosIDS)];
-        //localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
-    });*/
-    //console.log("lista de lista:", list_data_d);
-    /*$.each(_productosIDS, function (j, item) {
-        let add = JSON.stringify({ idproducto: item.idproducto, cantidad: 2, precioproducto: item.precio, subtotal: 100 });
-        list_data_d.push(add);
-        console.log("lista de lista:", list_data_d);
-    });*/
 }
 
 function getResultadoExitoso(resultado) {
@@ -167,7 +124,7 @@ function listarProductosCarrito() {
             <path
                 d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
             </svg>
-            <input id="cantidad${j}" class=" mx-2 border text-center w-8" type="number" value="1">
+            <input class="cantidad1 mx-2 border text-center w-8" type="number" value="1">
             <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
             <path
                 d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
@@ -196,19 +153,21 @@ function listarProductosCarrito() {
     });
 }
 
+function obtenerdatitos() {
+
+}
 function consumeguardarPedido() {
     //get element by id and get value
+    let cantidadF = parseInt($("#cantidad1").val());
     $.each(_productosIDS, function (j, item) {
-        let cantidadF = $("#cantidad" + j).val();
-        console.log("ids de cantidad:", cantidadF);
         list_data_d.push({
             idproducto: item.idproducto,
-            cantidad: cantidadF,
+            cantidad: 1,
             precioproducto: item.precio,
-            subtotal: item.precio * cantidadF,
+            subtotal: item.precio * 1,
         });
-        subtotales = subtotales + list_data_d[j].subtotal;
-        //console.log("subtotales:", subtotales);
+        subtotales = subtotales + (item.precio * 1);
+
     });
     console.log("lista de lista:", list_data_d);
     console.log("subtotales:", subtotales);
@@ -295,6 +254,18 @@ function init() {
     $("#guardarPedido").click(function () {
         consumeguardarPedido();
     });
+    $.each(_productosIDS, function (j, item) {
+        lista_datitos.push({
+            cantidad: 2,
+            precioproducto: item.precio,
+            subtotal: item.precio * 2,
+            sumasubtotales: sumasubtotales + (item.precio * 2),
+        });
+    });
+    console.log("lista de datitos:", lista_datitos);
+    let tamanio = lista_datitos.length;
+    console.log("tamanio:", tamanio);
+    console.log("suma total subtotales:", lista_datitos[tamanio - 1].sumasubtotales);
 }
 
 function showSeccionEnvios() {
@@ -307,5 +278,5 @@ $(document).ready(function () {
     getAvailableProducts();
     showSeccionEnvios();
     listarProductosCarrito();
-    GetList_data_d();
+    obtenerdatitos();
 });
