@@ -1,4 +1,7 @@
-var _datosUsuario;
+
+
+//let _datosUsuario = localStorage.setItem("user", JSON.stringify(_datosUsuario));
+
 function login() {
     var url = "/signin/Login";
     var tipo = 'POST';
@@ -33,6 +36,7 @@ function getResultadoExitoso(resultado) {
     }
     if (resultado.Success) {
         toastr.success("BIENVENIDO");
+        //_datosUsuario = resultado.Data;
         window.location.href = "/";
     } else {
         toastr.error("Usuario o contraseña incorrectos");
@@ -46,8 +50,6 @@ function disableButton() {
 
 $(document).ready(function () {
     $("#btnLogin").click(function () {
-
-        $('#btnLogin').attr('disabled', true);
 
         login();
         //getUsuarioExitoso();

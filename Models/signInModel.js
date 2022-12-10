@@ -9,6 +9,7 @@ class signInModel {
         var params = [data.name, data.password];
         return objDao.execute_one(sql, params);
     }
+    
 }
 module.exports = signInModel;
 

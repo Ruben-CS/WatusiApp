@@ -34,15 +34,24 @@ function AgregarAlCarrito(id) {
     //add to the array every time the button is clicked
     //let _productosIDS = JSON.parse(localStorage.getItem('_productosIDS'));
     let product = _datosProductos.Data.find(x => x.idproducto == id);
-    $.each(_productosIDS, function (i, item) {
-        if (_productosIDS[i].idproducto == id) {
-            toastr.error('El producto ya se encuentra en el carrito');
-            _productosIDS = _productosIDS.filter(x => x.idproducto != id);
+    _productosIDS.push(product);
+    /*$.each(_productosIDS, function (i, item) {
+        if (_productosIDS != null) {
+            if (_productosIDS[i].idproducto == id) {
+                toastr.error('El producto ya se encuentra en el carrito');
+                _productosIDS = _productosIDS.filter(x => x.idproducto != id);
+
+            }
+            else {
+                _productosIDS.push(product);
+            }
         }
         else {
             _productosIDS.push(product);
+
         }
-    });
+
+    });*/
 
     _productosIDS = [...new Set(_productosIDS)];
     localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
@@ -51,6 +60,8 @@ function AgregarAlCarrito(id) {
     //actualizar la tabla con .load()
     location.reload();
     //$("#seccion").load(" #seccion");
+
+
 
 }
 
@@ -79,35 +90,6 @@ function getAvailableProducts() {
             //console.log(_datosProductos);
         }
     });
-}
-
-function GetList_data_d() {
-    //list_data_d.push("idproducto" = item2.idproducto,);
-    //let product = _datosProductos.Data.find(x => x.idproducto == id);
-    //let list_data_d = [];
-    /*$.each(_productosIDS, function (i, item) {
-        list_data_d.push({
-            list_data_d: {
-                idproducto: item.idproducto,
-                cantidad: 2,
-                precioproducto: item.precio,
-                subtotal: item.cantidad * item.precio,
-            }
-        });
-        _productosIDS.push(product);
-
-        _productosIDS = [...new Set(_productosIDS)];
-        localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
-        console.log(_productosIDS);
-        //_productosIDS = [...new Set(_productosIDS)];
-        //localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
-    });*/
-    //console.log("lista de lista:", list_data_d);
-    /*$.each(_productosIDS, function (j, item) {
-        let add = JSON.stringify({ idproducto: item.idproducto, cantidad: 2, precioproducto: item.precio, subtotal: 100 });
-        list_data_d.push(add);
-        console.log("lista de lista:", list_data_d);
-    });*/
 }
 
 function getResultadoExitoso(resultado) {
@@ -139,10 +121,17 @@ function getResultadoExitoso(resultado) {
     }
 }
 
+
+
 function listarProductosCarrito() {
-    console.log(_productosIDS);
+
+    console.log("lista de lista:", list_data_d);
+    console.log("subtotales:", subtotales);
+
+    console.log("products", _productosIDS);
+    console.log("list_data_d", list_data_d);
     $.each(_productosIDS, function (j, item2) {
-        //if (item1.idproducto == item2.idproducto) {
+
         $("#tblCarrito").append(
             `
             <div id="seccion" class='flex items-center hover:bg-gray-100 -mx-8 px-6 py-5'>
@@ -154,12 +143,12 @@ function listarProductosCarrito() {
                 `<div class='flex flex-col justify-between ml-4 flex-grow'>
             <span id='nombreproducto' class='font-bold text-sm'>${item2.nombre}</span>
             <span class='text-red-500 text-xs'>Módulo habitacional</span>
-            <a onclick='deleteItem(${item2.idproducto})' class='font-semibold hover:text-red-500 text-gray-500 text-xs'>Remove</a>
+            <button onclick='deleteItem(${item2.idproducto})' class='font-semibold hover:text-red-500 text-gray-500 text-xs'>Remove</button>
             </div>`:
                 `<div class='flex flex-col justify-between ml-4 flex-grow'>
             <span id='nombreproducto' class='font-bold text-sm'>${item2.nombre}</span>
             <span class='text-blue-500 text-xs'>Tanque</span>
-            <a onclick='deleteItem(${item2.idproducto})' class='font-semibold hover:text-red-500 text-gray-500 text-xs'>Remove</a>
+            <button onclick='deleteItem(${item2.idproducto})' class='font-semibold hover:text-red-500 text-gray-500 text-xs'>Remove</button>
             </div>`}
             </div>
             <div class="flex justify-center w-1/5">
@@ -174,7 +163,7 @@ function listarProductosCarrito() {
             </svg>
             </div>
             <span class="text-center w-1/5 font-semibold text-sm">Bs. ${item2.precio}</span>
-            <span class="text-center w-1/5 font-semibold text-sm">Bs. ${item2.precio}</span>
+            <span class="showSubtotal text-center w-1/5 font-semibold text-sm">BS. ${subtotales} </span>
 
             </div>
             </div>
@@ -185,19 +174,16 @@ function listarProductosCarrito() {
     <h2 class='font-semibold text-2xl'> ${_productosIDS.length} items</h2>
     `
         );
-        html = `
-    <span class='font-semibold text-sm'>Subtotal: Bs.</span>
-    <span class='font-semibold text-sm uppercase>ITEMS</span>
-    `;
-        $("#divPrices").html(html);
+        $("#preciototal").html({ subtotales });
+        $("#showSubtotal").html({ subtotales });
 
         //_datosProductos = data;
-        //}
     });
+
 }
 
 function consumeguardarPedido() {
-    //get element by id and get value
+    const today = new Date();
     $.each(_productosIDS, function (j, item) {
         let cantidadF = $("#cantidad" + j).val();
         console.log("ids de cantidad:", cantidadF);
@@ -208,54 +194,31 @@ function consumeguardarPedido() {
             subtotal: item.precio * cantidadF,
         });
         subtotales = subtotales + list_data_d[j].subtotal;
-        //console.log("subtotales:", subtotales);
+        console.log("subtotales:", subtotales);
     });
     console.log("lista de lista:", list_data_d);
     console.log("subtotales:", subtotales);
-
-
     _productosIDS = [...new Set(_productosIDS)];
     localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
     console.log(_productosIDS);
-    //_productosIDS = [...new Set(_productosIDS)];
-    //localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));*/
+
 
     //console.log("lista de lista:", list_data_d);
     console.log("estoy guardando el pedido");
     cantidadKM = parseInt($("#kmdesdescz").val());
     precioxKM = 10;
-    precioEnviot = precioxKM * cantidadKM;
+    precioEnviot = 10 * cantidadKM;
     var url = "/pedido/guardarPedido";
     var tipo = 'POST';
     var datos = {
         "idpedido": 0,
-        "fechasolicitud": "5/12/2022",
-        "preciototal": 250,
+        "fechasolicitud": today.toLocaleDateString(),
+        "preciototal": subtotales + precioEnviot,
         "estado": 1,
         "kmdesdescz": cantidadKM,
-        "precioenvio": 100,
+        "precioenvio": 10 * cantidadKM,
         "iduser": 1,
         list_data_d: list_data_d
-        /*"list_data_d": [
-            {
-                "idproducto": 1,
-                "cantidad": 5,
-                "precioproducto": 10,
-                "subtotal": 50
-            },
-            {
-                "idproducto": 8,
-                "cantidad": 5,
-                "precioproducto": 10,
-                "subtotal": 50
-            },
-            {
-                "idproducto": 9,
-                "cantidad": 5,
-                "precioproducto": 10,
-                "subtotal": 50
-            }
-        ]*/
     };
     var tipoDatos = 'JSON';
     solicitudAjax(url, function (response) {
@@ -267,9 +230,11 @@ function consumeguardarPedido() {
 function deleteItem(id) {
     console.log("estoy borrando el id", id);
     //clear an specific item from the array with localstorage
-    let _productosIDS = JSON.parse(localStorage.getItem('_productosIDS'));
-    _productosIDS = _productosIDS.filter(x => x.idproducto != id);
+    _productosIDS = _productosIDS.filter(function (item) {
+        return item.idproducto !== id;
+    });
     localStorage.setItem('_productosIDS', JSON.stringify(_productosIDS));
+    console.log(_productosIDS);
     location.reload();
 }
 
@@ -295,7 +260,17 @@ function init() {
     $("#guardarPedido").click(function () {
         consumeguardarPedido();
     });
+
+
 }
+
+/*function obtenerCantidades(valor) {
+    $.each(_datosProductos, function (i, item) {
+        document.getElementById("cantidad" + i).value = valor;
+        console.log("cantidad?:", cantidad);
+        return cantidad;
+    });
+}*/
 
 function showSeccionEnvios() {
     $("#checkboxEnvio").prop("checked") ? $("#showSeccionEnvios").show() : $("#showSeccionEnvios").hide();
@@ -303,9 +278,30 @@ function showSeccionEnvios() {
 }
 
 $(document).ready(function () {
+    //.showSubtotal
+    $.each(_productosIDS, function (i, item) {
+        var text = document.getElementById('showEnvio');
+        text.addEventListener('keyup', (event) => {
+            var inputText = event.path[i].value;
+            document.querySelector('.showSubtotal').innerHTML = inputText;
+            console.log("text:", text);
+
+        });
+
+    });
+
     init();
     getAvailableProducts();
     showSeccionEnvios();
     listarProductosCarrito();
-    GetList_data_d();
+    //obtenerCantidades();
+    $("#showEnvio").hide();
+    $("#generarPrecioEnvio").click(function () {
+        $("#showEnvio").show();
+        cantidadKilometros = parseInt($("#kmdesdescz").val());
+        precioEnvio = 10 * cantidadKilometros;
+        $("#showEnvio").html("Envío: Bs. " + precioEnvio);
+
+
+    });
 });

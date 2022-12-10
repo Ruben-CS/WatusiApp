@@ -50,15 +50,15 @@ function getAvailableProducts() {
             _datosProductos = data;
             $.each(data.Data, function (i, item) {
                 if (item.estado == true) {
-                    $("#tarjeta").append(
-                        `
+                $("#tarjeta").append(
+                    `
                         <div class='bg-white p-3 shadow-md rounded-md'>
                         <h3 class='uppercase text-l text-gray-800 font-semibold mb-2'>${item.nombre}</h3>
                         <p class='mb-1'>${item.descripcion}</p>
                         <p class='my-2'>${'Bs.' + item.precio}</p>
                         <button id="btnAgregar" onclick='AgregarAlCarrito(${item.idproducto})' class='text-lg font-semibold text-gray-700 bg-indigo-100 px-4 py-1 block mx-auto rounded-md'>Agregar</button>
                         </div>`);
-                    _datosProductos = data;
+                _datosProductos = data;
                 }
             });
             //console.log(_productosIDS);

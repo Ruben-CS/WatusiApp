@@ -10,7 +10,7 @@ module.exports = {
     Login: (req, res) => {
         let data = {
             name: req.body.name,
-            password: bcrypt.hash(req.body.password, 10)
+            password: req.body.password
         };
         model.login(data).then(result => {
             res.type('json');

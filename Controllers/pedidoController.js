@@ -7,13 +7,6 @@ module.exports = {
     },
     GuardarPedido: (req, res) => {
         var data_m = {
-            /*idpedido: 0,
-            fechasolicitud: '01/12/2022',
-            preciototal: 250,
-            estado: 1,
-            kmdesdescz: 10,
-            precioenvio: 100,
-            iduser: 1,*/
             idpedido: req.body.idpedido,
             fechasolicitud: req.body.fechasolicitud,
             preciototal: req.body.preciototal,
